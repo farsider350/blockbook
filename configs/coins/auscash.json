@@ -1,0 +1,66 @@
+{
+  "coin": {
+    "name": "AusCash",
+    "shortcut": "XSG",
+    "label": "AusCash",
+    "alias": "auscash"
+  },
+  "ports": {
+    "backend_rpc": 8029,
+    "backend_message_queue": 38329,
+    "blockbook_internal": 9029,
+    "blockbook_public": 9129
+  },
+  "ipc": {
+    "rpc_url_template": "http://127.0.0.1:{{.Ports.BackendRPC}}",
+    "rpc_user": "rpc",
+    "rpc_pass": "rpc",
+    "rpc_timeout": 25,
+    "message_queue_binding_template": "tcp://127.0.0.1:{{.Ports.BackendMessageQueue}}"
+  },
+  "backend": {
+    "package_name": "backend-auscash",
+    "package_revision": "satoshilabs-1",
+    "system_user": "auscash",
+    "version": "3.0.4-7",
+    "binary_url": "https://github.com/Auscash/Auscash/releases/download/v3000457-20190909/auscash-debian9.11.0-3000457-20190926.zip",
+    "verification_type": "sha256",
+    "verification_source": "c5583bd31c8de86b19c481cf2c6445ebc1129e74fafc05e205064eb776ca96d3",
+    "extract_command": "unzip -j -d backend",
+    "exclude_files": [],
+    "exec_command_template": "{{.Env.BackendInstallPath}}/{{.Coin.Alias}}/auscashd -datadir={{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend -conf={{.Env.BackendInstallPath}}/{{.Coin.Alias}}/{{.Coin.Alias}}.conf -pid=/run/{{.Coin.Alias}}/{{.Coin.Alias}}.pid",
+    "logrotate_files_template": "{{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend/*.log",
+    "postinst_script_template": "HOME={{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend {{.Env.BackendInstallPath}}/{{.Coin.Alias}}/fetch-params.sh",
+    "service_type": "forking",
+    "service_additional_params_template": "Environment=\"HOME={{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend\"",
+    "protect_memory": false,
+    "mainnet": true,
+    "server_config_file": "bitcoin_like.conf",
+    "client_config_file": "bitcoin_like_client.conf",
+    "additional_params": {
+      "whitelist": "127.0.0.1"
+      ]
+    }
+  },
+  "blockbook": {
+    "package_name": "blockbook-auscash",
+    "system_user": "blockbook-auscash",
+    "internal_binding_template": ":{{.Ports.BlockbookInternal}}",
+    "public_binding_template": ":{{.Ports.BlockbookPublic}}",
+    "explorer_url": "",
+    "additional_params": "",
+    "block_chain": {
+      "parse": true,
+      "mempool_workers": 8,
+      "mempool_sub_workers": 2,
+      "block_addresses_to_keep": 300,
+      "xpub_magic": 76067358,
+      "slip44": 410,
+      "additional_params": {}
+    }
+  },
+  "meta": {
+    "package_maintainer": "Farsider350",
+    "package_maintainer_email": "farsider350@protonmail.com"
+  }
+}

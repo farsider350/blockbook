@@ -2,6 +2,7 @@ package coins
 
 import (
 	"blockbook/bchain"
+	"blockbook/bchain/coins/aus"
 	"blockbook/bchain/coins/bch"
 	"blockbook/bchain/coins/bellcoin"
 	"blockbook/bchain/coins/bitcore"
@@ -59,6 +60,7 @@ type blockChainFactory func(config json.RawMessage, pushHandler func(bchain.Noti
 var BlockChainFactories = make(map[string]blockChainFactory)
 
 func init() {
+	BlockChainFactories["Auscash"] = aus.NewAuscashRPC
 	BlockChainFactories["Bitcoin"] = btc.NewBitcoinRPC
 	BlockChainFactories["Testnet"] = btc.NewBitcoinRPC
 	BlockChainFactories["Zcash"] = zec.NewZCashRPC

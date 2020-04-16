@@ -2,6 +2,7 @@
 
 | coin                 | blockbook internal port | blockbook public port | backend rpc port | backend service ports (zmq) |
 |----------------------|-------------------------|-----------------------|------------------|-----------------------------|
+| Auscash              | 9029                    | 9129                  | 8029             | 38329                       |
 | Bitcoin              | 9030                    | 9130                  | 8030             | 38330                       |
 | Bitcoin Cash         | 9031                    | 9131                  | 8031             | 38331                       |
 | Zcash                | 9032                    | 9132                  | 8032             | 38332                       |
